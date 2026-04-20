@@ -119,5 +119,24 @@ public class CircularDoubleLinkedList<T>// : MonoBehaviour
         }
     }
 
+    public void TraverseRecursive(Action<Node<T>> action)
+    {
+        if (head == null) return;
+        ExecuteCircularRecursion(head, action);
+    }
+
+    private void ExecuteCircularRecursion(Node<T> current, Action<Node<T>> action)
+    {
+        action(current);
+
+        if (current.Next == head)
+        {
+            Debug.Log("Fin del recorrido circular");
+            return;
+        }
+
+        ExecuteCircularRecursion(current.Next, action);
+    }
+
 
 }

@@ -133,6 +133,17 @@ public class DoubleLinkedList<T> //: MonoBehaviour
             Evaluator = Evaluator.Prev;
         }
     }
+    public void TraverseRecursive(Action<Node<T>> action)
+    {
+        ExecuteRecursion(head, action);
+    }
+
+    private void ExecuteRecursion(Node<T> current, Action<Node<T>> action)
+    {
+        if (current == null) return;
+        action(current);
+        ExecuteRecursion(current.Next, action);
+    }
 
 
 }

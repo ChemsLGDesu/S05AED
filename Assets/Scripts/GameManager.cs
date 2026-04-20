@@ -24,7 +24,16 @@ public class GameManager : MonoBehaviour
     [Button]
     public void SaveTurn()
     {
+        foreach (var enemy in enemies)
+        {
+
+            Vector3 direction = (player.transform.position - enemy.transform.position).normalized;
+            Vector3 move = new Vector3(Mathf.Round(direction.x), 0, Mathf.Round(direction.z));
+            enemy.transform.position += move;
+        }
         snapshotSystem.SaveTurn(enemies);
+
+        Debug.Log("Turno registrado: Movimiento de entidades y guardado de Snapshot completo.");
     }
     //[Button]
     public void LoadTurn()
@@ -39,18 +48,16 @@ public class GameManager : MonoBehaviour
 
     private System.Collections.IEnumerator ReplayRoutine()
     {
-        // Empezamos desde el primer nodo
         snapshotSystem.pointer = snapshotSystem.head;
 
         while (snapshotSystem.pointer != null)
         {
             LoadTurn();
-            yield return new WaitForSeconds(0.5f); // Velocidad de reproducción
+            yield return new WaitForSeconds(0.5f); 
 
             if (snapshotSystem.pointer.Next == null) break;
             snapshotSystem.MoveForward();
         }
-
         Debug.Log("Replay finalizado.");
     }
     [Button]

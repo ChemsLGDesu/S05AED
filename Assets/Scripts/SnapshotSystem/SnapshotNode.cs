@@ -15,10 +15,10 @@ public class SnapshotNode
 
     public SnapshotNode(Player player , int turn, List<GameObject> enemies)
     {
-        Turn = turn;
+        this.Turn = turn;
+        this.playerPosition = player.transform.position;
+        this.playerRotation = player.transform.rotation.eulerAngles;
 
-        playerPosition = player.transform.position;
-        playerRotation = player.transform.rotation.eulerAngles;
         str = player.str;
         dtx = player.dtx;
         spd = player.spd;
